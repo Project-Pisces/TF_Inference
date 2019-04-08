@@ -11,9 +11,12 @@ import time
 import datetime
 import numpy as np
 import tensorflow as tf
-#import pygame
 import smtplib
 
+"""
+Reads .pb file included on the 
+tf_files directory
+"""
 def load_graph(model_file):
   graph = tf.Graph()
   graph_def = tf.GraphDef()
@@ -48,18 +51,22 @@ def load_labels(label_file):
     label.append(l.rstrip())
   return label
 
+"""
+This function is meant to send out an email when we find a chinook
+as of now, it is only sending text; however, it is possible to send images
+in the form of a JSON file due to the limited networking at the river.
+"""
+#name = project
+#lastname = pisces
+#projectpiscesrover@gmail.com
+#bday = 03/31/1920
+#pwd = salmonxtrout
 def notify_user():
-  #name = project
-  #lastname = pisces
-  #projectpiscesrover@gmail.com
-  #bday = 03/31/1920
-  #pwd = salmonxtrout
   user = 'projectpiscesrover@gmail.com'
   pwd = 'salmonxtrout'
-  recipient = 'chris.farnes@sjsu.edu'
-  subject = 'empty'
+  recipient = 'edward.melendez@sjsu.edu'
+  subject = 'Good News from Pisces ROV'
   body = """If you are getting this email it means that christian was able to train the ML model to find a chinook then sent you an email about it"""
-  #send_email(user, pwd, recipient, subject, body)
 
   FROM = user
   TO = recipient if isinstance(recipient, list) else [recipient]
@@ -80,7 +87,6 @@ def notify_user():
   except:
       print('failed to send mail')
 
-
 if __name__ == "__main__":
   input_height = 224
   input_width = 224
@@ -97,22 +103,14 @@ if __name__ == "__main__":
 
   if args.graph:
     model_file = args.graph
-  #if args.image:
-  #  file_name = args.image
+
   if args.labels:
     label_file = args.labels
-  
-  #pymusic for demo
-  #file = 'some.mp3'
-  #pygame.init()
-  #pygame.mixer.init()
-  #pygame.mixer.music.load('/Users/chris/Desktop/yeah.mp3')
-
 
   graph = load_graph(model_file)
 
   # loop to get the length and verify it is > 0, keep looping
-  #while(os.listdir("/tmp/opencv_frame/"))
+  # while(os.listdir("/tmp/opencv_frame/"))
   # At beginning, get all filenames in directory, then loop filenames
   
   # Make into an outiside loop chekcing for length
@@ -135,8 +133,6 @@ if __name__ == "__main__":
                                         input_mean=input_mean,
                                         input_std=input_std)
 
-
-
         input_name = "import/" + input_layer
         output_name = "import/" + output_layer
         input_operation = graph.get_operation_by_name(input_name)
@@ -155,7 +151,6 @@ if __name__ == "__main__":
         results = np.squeeze(results)
         top_k = results.argsort()[-1:][::-1]
 
-
         if(labels[top_k[0]] == 'chinook' and (results[top_k[0]] > .5)):
           print('OMG, its a Chinook!')
           print('I am', results[top_k[0]], 'confident about this')
@@ -163,17 +158,13 @@ if __name__ == "__main__":
           st = datetime.datetime.fromtimestamp(ts).strftime('%Y-%m-%d %H:%M:%S')
           shutil.copy(full_image_path, '/tmp/found_endagered_fish/' + st + '.jpg')
           notify_user()
-          #pygame.mixer.music.play()
           os.remove(full_image_path)
 
-        
         elif(labels[top_k[0]] == 'chinook' and (results[top_k[0]] < .5) and (results[top_k[0]] > .4)):
           print('Could be a Chinook!')
           print('I am', results[top_k[0]], 'confident about this')
           ts = time.time()
           st = datetime.datetime.fromtimestamp(ts).strftime('%Y-%m-%d %H:%M:%S')
-        
-        
 
         elif(labels[top_k[0]] == ('black_crappie' or 'bluegill' 
                                   or 'pacific_lamprey' or 'riffle_sculpin'
@@ -186,7 +177,7 @@ if __name__ == "__main__":
           ts = time.time()
           st = datetime.datetime.fromtimestamp(ts).strftime('%Y-%m-%d %H:%M:%S')
           shutil.copy(full_image_path, '/tmp/basic_fish/' + st + '.jpg')
-          #os.remove(full_image_path)
+          os.remove(full_image_path)
 
         else:
           print('Scanned image but found nothing of interest')
