@@ -8,7 +8,7 @@ To run properly both `snapshot.py` and `run_inference.py` must be running at the
 3. Once the image has been read and inference run we store or or ignore the image based on the results we found.
 4. Images are removed from directory to prevent wasted space
 
-![img](assets/proc.jpg)
+![img](assets/proc.JPG)
 
 This is the current tree structure of the project note that `run_inference.py` must be on the parent directory of 
 
