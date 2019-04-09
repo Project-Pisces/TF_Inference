@@ -56,6 +56,14 @@ tensorflow==1.13.1
 tensorflow-hub==0.3.0
 ~~~
 
+It is a good idea to use the 256 Cuda Cores on the Jetson at max frequency but you might not be able to if running on battery with less than 12 Volts, try anyway:
+
+~~~bash
+cd ~/Desktop
+
+sudo ./jetson_clocks.sh
+~~~
+
 Finally run both processes to get started
 
 ~~~bash
