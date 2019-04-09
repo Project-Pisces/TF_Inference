@@ -59,11 +59,12 @@ tensorflow-hub==0.3.0
 Finally run both processes to get started
 
 ~~~bash
-python snapshots.py
-~~~
+cd ~/TF_Inference/
 
-~~~bash
-python3 run_inference.py \
+python snapshots.py
+
+# Open a new terminal
+sudo python run_inference.py \
 --graph tf_files/mobile_net_fish_of_guadalupe_graph.pb \
 --labels tf_files/mobile_net_guadalupe_labels.txt
 ~~~
