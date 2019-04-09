@@ -2,6 +2,12 @@
 
 This repository contains the code needed to run inference on the Tensorflow generated frozen graph (model) along with the needed resources to build it again.
 
+- [Overview and dependencies](#overview-and-dependencies)
+- [Project Architecture](#project-architecture)
+- [How to run inference](#how-to-run-inference)
+- [Results explained](#what-is-happening)
+- [Future improvements](#future-improvements)
+
 ## Overview and dependencies
 
 To run properly both `snapshot.py` and `run_inference.py` must be running at the same time and through the duration of the exploration.
@@ -11,7 +17,7 @@ To run properly both `snapshot.py` and `run_inference.py` must be running at the
 3. Once the image has been read and inference run we store or or ignore the image based on the results we found.
 4. Images are removed from directory to prevent wasted space
 
-## How to run inference
+## Project architecture
 
 ![img](assets/proc.jpg)
 
@@ -32,6 +38,8 @@ TF_inference
     ├── models
     └── training_summaries
 ~~~
+
+## How to run inference
 
 In order to execute the program ensure you have these Python packages installed and have sourced your virtual environment if you're using one
 
@@ -67,3 +75,6 @@ As you see from the architecture diagram, inference is constantly run and when a
 
 ![img](assets/Internet-Chinook-su2a4m-768x514.png)
 
+## Future improvements
+
+New data on the target fish is desperately needed
