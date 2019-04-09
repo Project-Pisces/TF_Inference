@@ -87,6 +87,9 @@ def notify_user():
   except:
       print('failed to send mail')
 
+# TODO: Separate main from sess.run
+# TODO: Write code for custom directory assignment
+
 if __name__ == "__main__":
   input_height = 224
   input_width = 224
