@@ -5,6 +5,7 @@ This repository contains the code needed to run inference on the Tensorflow gene
 - [Overview and dependencies](#overview-and-dependencies)
 - [Project Architecture](#project-architecture)
 - [How to run inference](#how-to-run-inference)
+- [Stop Inference](#stop-inference)
 - [Results explained](#what-is-happening)
 - [Future improvements](#future-improvements)
 
@@ -29,14 +30,18 @@ TF_inference
 |
 ├── README.md
 ├── assets
+├── jetsonCV.py
 ├── run_inference.py
 ├── snapshots.py
-└── tf_files
-    ├── bottlenecks
-    ├── mobile_net_fish_of_guadalupe_graph.pb
-    ├── mobile_net_guadalupe_labels.txt
-    ├── models
-    └── training_summaries
+├── tf_files
+│   ├── bottlenecks
+│   ├── mobile_net_fish_of_guadalupe_graph.pb
+│   ├── mobile_net_guadalupe_labels.txt
+│   ├── models
+│   └── training_summaries
+└── utils
+    ├── cat_inference_processes.sh
+    └── stop_inference.sh
 ~~~
 
 ## How to run inference
@@ -68,6 +73,24 @@ you know you did it right if this is your output:
 ![img](assets/OMG-chinook-tztnic-768x505.png)
 
 Note that we have disabled the email function for now, it is functional but we do not have reliable wireless connectivity as of now
+
+## Stop Inference
+
+By default inference will run on boot of the Jetsonboard. It will run automatically because there is a script that is set to run in `/etc/rc.local` this script will create the temporary folders needed for the inference and snapshots processes to run.
+
+Because they are running by default they will continue to run even if the Jetson is plugged into an HDMI output so to stop them run the stop script in the utilities folder of this repo:
+
+~~~bash
+sudo sh ~/TF_Inference/utils/stop_inference.sh
+~~~
+
+>Note: the command above must be sudo as **rc.local** runs as super user. Sudo password for the Jetson nvidia user is `nvidia`
+
+If you suspect that the processes are still running or simply want to make sure they are running run the following command
+
+~~~bash
+sh ~/TF_Inference/cat_inference_processes.sh
+~~~
 
 ### What is happening
 
