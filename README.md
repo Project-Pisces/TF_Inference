@@ -19,7 +19,7 @@ To run properly both `snapshot.py` and `run_inference.py` must be running at the
 
 ## Project architecture
 
-![img](assets/proc.jpg)
+![img](assets/proc.JPG)
 
 This is the current tree structure of the project note that `run_inference.py` must be on the parent directory of:
 `/tf_files/mobile_net_fish_of_guadalupe_graph.pb` and `/tf_files/mobile_net_guadalupe_labels.txt`
