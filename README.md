@@ -50,6 +50,12 @@ TF_inference
 
 ## How to run inference
 
+The Jetsonboard TX2 is configured to run all needed commands on boot up so no need to run them manually; however, in order to accomplish this the `.profile` and `/etc/sudoers` files were altered. There is a backup of sudoers at `/root/sudoers.bak`.
+
+### Running inference manually
+
+You would want to do this if you're working on the model on your local computer or an AWS instance. Just create the model and feed the `run_inference.py` script your frozen graph in the form of a **.pb** file and your labels in a **.txt** file.
+
 In order to execute the program ensure you have these Python packages installed and have sourced your virtual environment if you're using one
 
 ~~~bash
