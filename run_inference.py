@@ -111,6 +111,7 @@ if __name__ == "__main__":
     label_file = args.labels
 
   graph = load_graph(model_file)
+  count = 0
 
   # loop to get the length and verify it is > 0, keep looping
   # while(os.listdir("/tmp/opencv_frame/"))
@@ -160,7 +161,7 @@ if __name__ == "__main__":
           ts = time.time()
           st = datetime.datetime.fromtimestamp(ts).strftime('%Y-%m-%d %H:%M:%S')
           shutil.copy(full_image_path, '/tmp/found_endagered_fish/' + st + '.jpg')
-          notify_user()
+          # notify_user()
           os.remove(full_image_path)
 
         elif(labels[top_k[0]] == 'chinook' and (results[top_k[0]] < .5) and (results[top_k[0]] > .4)):
@@ -168,6 +169,8 @@ if __name__ == "__main__":
           print('I am', results[top_k[0]], 'confident about this')
           ts = time.time()
           st = datetime.datetime.fromtimestamp(ts).strftime('%Y-%m-%d %H:%M:%S')
+          shutil.copy(full_image_path, '/tmp/possible_endagered_fish/' + st + '.jpg')
+          os.remove(full_image_path)
 
         elif(labels[top_k[0]] == ('black_crappie' or 'bluegill' 
                                   or 'pacific_lamprey' or 'riffle_sculpin'
@@ -185,4 +188,9 @@ if __name__ == "__main__":
         else:
           print('Scanned image but found nothing of interest')
           print('I am', results[top_k[0]], 'confident about this')
+          ts = time.time()
+          st = datetime.datetime.fromtimestamp(ts).strftime('%Y-%m-%d %H:%M:%S')
+          f = open("/home/nvidia/Desktop/inference.txt", "a+")
+          f.write("Found no results " + st + "\r\n")
+          f.close()
           os.remove(full_image_path)
