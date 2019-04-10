@@ -20,6 +20,10 @@ To run properly both `snapshot.py` and `run_inference.py` must be running at the
 
 ## Project architecture
 
+[TF-hub module is mobilenet_v1_050](https://tfhub.dev/google/imagenet/mobilenet_v1_050_224/feature_vector/1)
+
+This TF-Hub module uses the TF-Slim implementation of mobilenet_v1_050 with a depth multiplier of 0.5 and an input size of 224x224 pixels.
+
 ![img](assets/proc.JPG)
 
 This is the current tree structure of the project note that `run_inference.py` must be on the parent directory of:
