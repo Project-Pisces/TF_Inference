@@ -4,7 +4,7 @@ import sys, getopt
 import datetime
 
 
-def take_snapshots(cam_value):
+def take_snapshots(cam_value, file_write_path):
 	if(cam_value == 'True'):
 		print("Thiiscam ",cam_value)
 		cam = cv2.VideoCapture(1)
@@ -37,13 +37,14 @@ def take_snapshots(cam_value):
 
 def main(argv):
   usb_cam = ''
+	file_path = ''
   helpMessage = """
 <python >= 2.7> snapshots.py --usb_cam <usb_camera>
 --usb_cam specifies camera to be used. usb+cam=true will use exterior camera and not the one mounted on Jetson TX2
   """
   
   try:
-    opts, args = getopt.getopt(argv, "hi:o:t",{"usb_cam="})
+    opts, args = getopt.getopt(argv, "hi:o:t",{"usb_cam=", "file_path="})
   except getopt.GetoptError:
     print(helpMessage)
     sys.exit(2)
@@ -53,9 +54,11 @@ def main(argv):
       sys.exit(2)
     elif opt in ("-i", "--usb_cam"):
       cam_value = arg
+		elif opt in ("-o", "--file_path"):
+			path = arg
 
     
-  take_snapshots(cam_value)
+  take_snapshots(cam_value, path)
 
 if __name__ == '__main__':
   main(sys.argv[1:])
