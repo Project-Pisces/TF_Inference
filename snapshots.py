@@ -13,6 +13,10 @@ def take_snapshots(cam_value, file_write_path):
 		print("Invalid camera setting.")
 		sys.exit()
 
+		if(file_write_path == ''){
+			file_write_path = '/tmp/opencv_frame/'
+		}
+
 	img_counter = 0
 
 	while True:
@@ -24,7 +28,7 @@ def take_snapshots(cam_value, file_write_path):
 	    ts = time.time()
 	    st = datetime.datetime.fromtimestamp(ts).strftime('%Y-%m-%d %H:%M:%S')
 	    cv2.resize(frame, (480, 360))      #decreasing resolution
-	    img_name = '/tmp/opencv_frame/' + st + '.jpg'.format(img_counter)
+	    img_name = file_write_path + st + '.jpg'.format(img_counter)
 	    cv2.imwrite(img_name, frame)
 	    img_counter += 1
 
