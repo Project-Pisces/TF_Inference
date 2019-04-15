@@ -1,0 +1,9 @@
+[Desktop Entry]
+Version=1.0
+Name=View Inference Log        
+Comment=Start inference program from desktop
+Exec=bash -c 'tail -f ~/logs/inference.log'
+Icon=/home/nvidia/icon.png
+Terminal=true 
+Type=Application
+Categories=Application;
