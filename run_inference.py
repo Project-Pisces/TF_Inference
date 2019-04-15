@@ -165,20 +165,20 @@ if __name__ == "__main__":
         if(labels[top_k[0]] == 'chinook' and (results[top_k[0]] > .5)):
           print('OMG, its a Chinook!')
           print('I am', results[top_k[0]], 'confident about this')
-					ts = time.time()
-					st = datetime.datetime.fromtimestamp(ts).strftime('%Y-%m-%d %H:%M:%S')
+          ts = time.time()
+          st = datetime.datetime.fromtimestamp(ts).strftime('%Y-%m-%d %H:%M:%S')
           shutil.copy(full_image_path, '/home/nvidia/results/found_endagered_fish/' + st + '.jpg')
           # notify_user()
-					write_log("OMG, its a Chinook!")
+          write_log("OMG, its a Chinook!")
           os.remove(full_image_path)
 
         elif(labels[top_k[0]] == 'chinook' and (results[top_k[0]] < .5) and (results[top_k[0]] > .4)):
           print('Could be a Chinook!')
           print('I am', results[top_k[0]], 'confident about this')
-					ts = time.time()
-					st = datetime.datetime.fromtimestamp(ts).strftime('%Y-%m-%d %H:%M:%S')
+          ts = time.time()
+          st = datetime.datetime.fromtimestamp(ts).strftime('%Y-%m-%d %H:%M:%S')
           shutil.copy(full_image_path, '/home/nvidia/results/possible_endagered_fish' + st + '.jpg')
-					write_log("Could be a Chinook!"
+          write_log("Could be a Chinook!")
           os.remove(full_image_path)
 
         elif(labels[top_k[0]] == ('black_crappie' or 'bluegill' 
@@ -189,10 +189,10 @@ if __name__ == "__main__":
                                   and (results[top_k[0]] > .5)):
           print('Found a fish but not the target' + '\n' + labels[top_k[0]])
           print('I am', results[top_k[0]], 'confident about this')
-					ts = time.time()
-					st = datetime.datetime.fromtimestamp(ts).strftime('%Y-%m-%d %H:%M:%S')
+          ts = time.time()
+          st = datetime.datetime.fromtimestamp(ts).strftime('%Y-%m-%d %H:%M:%S')
           shutil.copy(full_image_path, '/home/nvidia/results/basic_fish/' + st + '.jpg')
-					write_log("Found a fish but not the target")
+          write_log("Found a fish but not the target")
           os.remove(full_image_path)
 
         else:
