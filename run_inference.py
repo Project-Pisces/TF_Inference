@@ -169,7 +169,7 @@ if __name__ == "__main__":
           st = datetime.datetime.fromtimestamp(ts).strftime('%Y-%m-%d %H:%M:%S')
           shutil.copy(full_image_path, '/home/nvidia/results/found_endagered_fish/' + st + '.jpg')
           # notify_user()
-          write_log("OMG, its a Chinook!")
+          write_log("OMG, its a Chinook! ")
           os.remove(full_image_path)
 
         elif(labels[top_k[0]] == 'chinook' and (results[top_k[0]] < .5) and (results[top_k[0]] > .4)):
@@ -177,8 +177,8 @@ if __name__ == "__main__":
           print('I am', results[top_k[0]], 'confident about this')
           ts = time.time()
           st = datetime.datetime.fromtimestamp(ts).strftime('%Y-%m-%d %H:%M:%S')
-          shutil.copy(full_image_path, '/home/nvidia/results/possible_endagered_fish' + st + '.jpg')
-          write_log("Could be a Chinook!")
+          shutil.copy(full_image_path, '/home/nvidia/results/possible_endagered_fish/' + st + '.jpg')
+          write_log("Could be a Chinook! ")
           os.remove(full_image_path)
 
         elif(labels[top_k[0]] == ('black_crappie' or 'bluegill' 
@@ -192,11 +192,11 @@ if __name__ == "__main__":
           ts = time.time()
           st = datetime.datetime.fromtimestamp(ts).strftime('%Y-%m-%d %H:%M:%S')
           shutil.copy(full_image_path, '/home/nvidia/results/basic_fish/' + st + '.jpg')
-          write_log("Found a fish but not the target")
+          write_log("Found a fish but not the target ")
           os.remove(full_image_path)
 
         else:
           print('Scanned image but found nothing of interest')
           print('I am', results[top_k[0]], 'confident about this')
-          write_log("Image does not contain target")
+          write_log("Image does not contain target ")
           os.remove(full_image_path)
