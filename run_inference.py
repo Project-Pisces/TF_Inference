@@ -47,7 +47,7 @@ def read_tensor_from_image_file(file_name, input_height=299, input_width=299, in
 def write_log(tag):
 	ts = time.time()
 	st = datetime.datetime.fromtimestamp(ts).strftime('%Y-%m-%d %H:%M:%S')
-	f = open("/home/nvidia/Desktop/inference.log", "a+")
+	f = open("/home/nvidia/logs/inference.log", "a+")
 	f.write(tag + st + "\r\n")
 	f.close()
 
@@ -125,6 +125,9 @@ if __name__ == "__main__":
   # At beginning, get all filenames in directory, then loop filenames
   
   # Make into an outiside loop chekcing for length
+	config = tf.ConfigProto()
+	config.gpu_options.allow_growth = Trueconfig = tf.ConfigProto()
+	config.gpu_options.allow_growth = True
 
   print(len(os.listdir("/tmp/opencv_frame/")))
 
