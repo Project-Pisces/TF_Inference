@@ -125,9 +125,8 @@ if __name__ == "__main__":
   # At beginning, get all filenames in directory, then loop filenames
   
   # Make into an outiside loop chekcing for length
-	config = tf.ConfigProto()
-	config.gpu_options.allow_growth = Trueconfig = tf.ConfigProto()
-	config.gpu_options.allow_growth = True
+  config = tf.ConfigProto()
+  config.gpu_options.allow_growth = True
 
   print(len(os.listdir("/tmp/opencv_frame/")))
 
