@@ -190,7 +190,7 @@ if __name__ == "__main__":
           print('I am', results[top_k[0]], 'confident about this')
           ts = time.time()
           st = datetime.datetime.fromtimestamp(ts).strftime('%Y-%m-%d %H:%M:%S')
-          f = open("/home/nvidia/Desktop/inference.txt", "a+")
+          f = open("/home/nvidia/Desktop/inference.log", "a+")
           f.write("Found no results " + st + "\r\n")
           f.close()
           os.remove(full_image_path)
