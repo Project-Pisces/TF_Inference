@@ -46,6 +46,9 @@ TF_inference
 │   └── training_summaries
 └── utils
     ├── cat_inference_processes.sh
+    ├── inference.desktop
+    ├── log.desktop
+    ├── startup.desktop
     └── stop_inference.sh
 ~~~
 
