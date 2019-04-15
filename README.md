@@ -7,6 +7,7 @@ This repository contains the code needed to run inference on the Tensorflow gene
 - [How to run inference](#how-to-run-inference)
 - [Stop Inference](#stop-inference)
 - [Results explained](#what-is-happening)
+- [Troubleshooting](#troubleshooting)
 - [Future improvements](#future-improvements)
 
 ## Overview and dependencies
@@ -120,3 +121,24 @@ As you see from the architecture diagram, inference is constantly run and when a
 ## Future improvements
 
 New data on the target fish is desperately needed
+
+## Troubleshooting
+
+One of the biggest challenges when working with the Jetson is that there are several libraries and programs which will work on your desktop or laptop pc that will not work on the Jetson because of its architecture. We worked around most of them and figured out the problems; however, there is one problem that persists and is a [well known issue with JetsonBoard](https://devtalk.nvidia.com/default/topic/1029742/jetson-tx2/tensorflow-1-6-not-working-with-jetpack-3-2/2). When you run the inference script you may encounter the following error:
+
+~~~text
+E tensorflow/stream_executor/cuda/cuda_driver.cc:967] failed to alloc 1048576 bytes on host: CUDA_ERROR_UNKNOWN
+2019-05-06 05:43:48.865480: W ./tensorflow/core/common_runtime/gpu/pool_allocator.h:195] could not allocate pinned host memory of size: 1048576
+2019-05-06 05:43:48.865508: E tensorflow/stream_executor/cuda/cuda_driver.cc:967] failed to alloc 943872 bytes on host: CUDA_ERROR_UNKNOWN
+2019-05-06 05:43:48.865532: W ./tensorflow/core/common_runtime/gpu/pool_allocator.h:195] could not allocate pinned host memory of size: 943872
+2019-05-06 05:43:48.865568: E tensorflow/stream_executor/cuda/cuda_driver.cc:967] failed to alloc 849664 bytes on host: CUDA_ERROR_UNKNOWN
+~~~
+
+At first this issue occurred every time we used TensorFlow but we added these lines on the python script as a hot fix
+
+~~~python
+config = tf.ConfigProto()
+config.gpu_options.allow_growth = True
+~~~
+
+but this alone did not solve the problem. Additionally you must run the inference program with **sudo** permissions, and if python3 fails use python2.7
