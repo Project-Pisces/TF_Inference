@@ -44,6 +44,13 @@ def read_tensor_from_image_file(file_name, input_height=299, input_width=299, in
 
   return result
 
+def write_log(tag):
+	ts = time.time()
+	st = datetime.datetime.fromtimestamp(ts).strftime('%Y-%m-%d %H:%M:%S')
+	f = open("/home/nvidia/Desktop/inference.log", "a+")
+	f.write(tag + st + "\r\n")
+	f.close()
+
 def load_labels(label_file):
   label = []
   proto_as_ascii_lines = tf.gfile.GFile(label_file).readlines()
@@ -158,18 +165,20 @@ if __name__ == "__main__":
         if(labels[top_k[0]] == 'chinook' and (results[top_k[0]] > .5)):
           print('OMG, its a Chinook!')
           print('I am', results[top_k[0]], 'confident about this')
-          ts = time.time()
-          st = datetime.datetime.fromtimestamp(ts).strftime('%Y-%m-%d %H:%M:%S')
-          shutil.copy(full_image_path, '/tmp/found_endagered_fish/' + st + '.jpg')
+					ts = time.time()
+					st = datetime.datetime.fromtimestamp(ts).strftime('%Y-%m-%d %H:%M:%S')
+          shutil.copy(full_image_path, '/home/nvidia/results/found_endagered_fish/' + st + '.jpg')
           # notify_user()
+					write_log("OMG, its a Chinook!")
           os.remove(full_image_path)
 
         elif(labels[top_k[0]] == 'chinook' and (results[top_k[0]] < .5) and (results[top_k[0]] > .4)):
           print('Could be a Chinook!')
           print('I am', results[top_k[0]], 'confident about this')
-          ts = time.time()
-          st = datetime.datetime.fromtimestamp(ts).strftime('%Y-%m-%d %H:%M:%S')
-          shutil.copy(full_image_path, '/tmp/possible_endagered_fish/' + st + '.jpg')
+					ts = time.time()
+					st = datetime.datetime.fromtimestamp(ts).strftime('%Y-%m-%d %H:%M:%S')
+          shutil.copy(full_image_path, '/home/nvidia/results/possible_endagered_fish' + st + '.jpg')
+					write_log("Could be a Chinook!"
           os.remove(full_image_path)
 
         elif(labels[top_k[0]] == ('black_crappie' or 'bluegill' 
@@ -180,17 +189,14 @@ if __name__ == "__main__":
                                   and (results[top_k[0]] > .5)):
           print('Found a fish but not the target' + '\n' + labels[top_k[0]])
           print('I am', results[top_k[0]], 'confident about this')
-          ts = time.time()
-          st = datetime.datetime.fromtimestamp(ts).strftime('%Y-%m-%d %H:%M:%S')
-          shutil.copy(full_image_path, '/tmp/basic_fish/' + st + '.jpg')
+					ts = time.time()
+					st = datetime.datetime.fromtimestamp(ts).strftime('%Y-%m-%d %H:%M:%S')
+          shutil.copy(full_image_path, '/home/nvidia/results/basic_fish/' + st + '.jpg')
+					write_log("Found a fish but not the target")
           os.remove(full_image_path)
 
         else:
           print('Scanned image but found nothing of interest')
           print('I am', results[top_k[0]], 'confident about this')
-          ts = time.time()
-          st = datetime.datetime.fromtimestamp(ts).strftime('%Y-%m-%d %H:%M:%S')
-          f = open("/home/nvidia/Desktop/inference.log", "a+")
-          f.write("Found no results " + st + "\r\n")
-          f.close()
+          write_log("Image does not contain target")
           os.remove(full_image_path)
