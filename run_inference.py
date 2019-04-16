@@ -106,7 +106,6 @@ if __name__ == "__main__":
   output_layer = "final_result"
 
   parser = argparse.ArgumentParser()
-  parser.add_argument("--image")
   parser.add_argument("--graph")
   parser.add_argument("--labels")
   args = parser.parse_args()
@@ -128,10 +127,10 @@ if __name__ == "__main__":
   config = tf.ConfigProto()
   config.gpu_options.allow_growth = True
 
-  print(len(os.listdir("/tmp/opencv_frame/")))
+  print("There are "+ str(len(os.listdir("/tmp/opencv_frame/"))) + " images in the buffer")
 
   while(len(os.listdir("/tmp/opencv_frame/")) > 0):
-    print("Waiting for images to load...")
+    print("Waiting for more images to load...")
     time.sleep(12)
     print(len(os.listdir("/tmp/opencv_frame/")), "items in the snapshot folder")
     for file_name in os.listdir("/tmp/opencv_frame/"):
