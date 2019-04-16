@@ -56,7 +56,29 @@ TF_inference
 
 The Jetsonboard TX2 is configured to run all needed commands on boot up so no need to run them manually; however, in order to accomplish this the `.profile` and `/etc/sudoers` files were altered. There is a backup of sudoers at `/root/sudoers.bak`.
 
-### Running inference manually
+On boot up there are a few scripts that prepare the rover for an expedition; namely, all the directories needed for proper operation are created if they are missing, the Jetsonboard is set to max settings (max GPU frequency), and program to gather images is spun up.
+
+In other words the rover is in **capture** mode and is only capturing images to store them into disk. By default the inference running task is done at the lab once the rover navigation is over.
+
+### View resuts and run inference
+
+When the Jetson is turned on it automatically logs into the `nvidia` user directly onto the user's Desktop. At the Desktop there are two icons that are used to run inference on the captured images:
+
+1. Double click `View Inference Log`
+
+> Starts a new shell showing live output of the inference program
+
+2. Double click `Inference`
+
+>Starts the `run_inference.py` program
+
+![run](assets/home.png)
+
+There will be two need windows open that will start the program and show it's status
+
+![run](assets/run.png)
+
+#### Running inference manually
 
 You would want to do this if you're working on the model on your local computer or an AWS instance. Just create the model and feed the `run_inference.py` script your frozen graph in the form of a **.pb** file and your labels in a **.txt** file.
 
@@ -83,10 +105,10 @@ Finally run both processes to get started
 ~~~bash
 cd ~/TF_Inference/
 
-python snapshots.py
+python snapshots.py &
 
 # Open a new terminal
-sudo python run_inference.py \
+sudo python3 run_inference.py \
 --graph tf_files/mobile_net_fish_of_guadalupe_graph.pb \
 --labels tf_files/mobile_net_guadalupe_labels.txt
 ~~~
@@ -145,3 +167,10 @@ config.gpu_options.allow_growth = True
 ~~~
 
 but this alone did not solve the problem. Additionally you must run the inference program with **sudo** permissions, and if python3 fails use python2.7
+
+Another problem is running out of memory while running inference to check on the status of the memory run these commands
+
+~~~bash
+cd ~/
+./tegrastats.sh
+~~~
