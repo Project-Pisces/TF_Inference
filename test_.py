@@ -35,9 +35,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-
-"""
-for i in {1..20}
-do touch /tmp/test_/chinook_$i.jpg
-done
-"""
