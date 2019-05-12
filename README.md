@@ -156,7 +156,7 @@ E tensorflow/stream_executor/cuda/cuda_driver.cc:967] failed to alloc 1048576 by
 2019-05-06 05:43:48.865480: W ./tensorflow/core/common_runtime/gpu/pool_allocator.h:195] could not allocate pinned host memory of size: 1048576
 2019-05-06 05:43:48.865508: E tensorflow/stream_executor/cuda/cuda_driver.cc:967] failed to alloc 943872 bytes on host: CUDA_ERROR_UNKNOWN
 2019-05-06 05:43:48.865532: W ./tensorflow/core/common_runtime/gpu/pool_allocator.h:195] could not allocate pinned host memory of size: 943872
-2019-05-06 05:43:48.865568: E tensorflow/stream_executor/cuda/cuda_driver.cc:967] failed to alloc 849664 bytes on host: CUDA_ERROR_UNKNOWN
+2019-05-06 05:43:48.865568: E tensorflow/stream_executor/cuda/cuda_driver.cc:967] failed to alloc 849664 bytes on host: CUDA_ERROR_UNKNOWNGREEN
 ~~~
 
 At first this issue occurred every time we used TensorFlow but we added these lines on the python script as a hot fix
